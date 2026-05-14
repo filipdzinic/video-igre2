@@ -1,0 +1,6 @@
+﻿  cruid.c
+C:\Users\student\source\repos\videoigre\videoigre\cruid.c(29,13): warning C4133: 'function': incompatible types - from 'FILE *' to 'const char *const '
+C:\Users\student\source\repos\videoigre\videoigre\cruid.c(77,10): warning C4473: 'scanf' : not enough arguments passed for format string
+C:\Users\student\source\repos\videoigre\videoigre\cruid.c(77,10): message : placeholders and their parameters expect 1 variadic arguments, but 0 were provided
+C:\Users\student\source\repos\videoigre\videoigre\cruid.c(77,10): message : the missing variadic argument 1 is required by format string '%s'
+  videoigre.vcxproj -> C:\Users\student\source\repos\videoigre\Debug\videoigre.exe
