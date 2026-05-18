@@ -3,6 +3,7 @@
 
 #define FILE_NAME "igre.txt"
 
+// UBACI ŽANR, CIJENU ITD. ZA SORTIRANJE!
 typedef struct {
 	int id;
 	char ime[50];
