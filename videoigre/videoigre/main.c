@@ -3,10 +3,20 @@
 #include <stdio.h>
 #include "cruid.h"
 
+// OBAVEZAN KONCEPT 11: Korištenje enum-a za izbornik
+enum opcijaIzbornika {
+	NOVA_IGRA = 1,
+	CITANJE_IGRE,
+	UPDATE_IGRE,
+	BRISANJE_IGRE,
+	IZLAZ
+};
+
+// izbornik
 void menu() {
 
-	printf("\n====================");
-	printf("\nDobrodosli u game library! Sljedeci put samo skinite STEAM");
+	printf("\n!!!!!!!!!!!!!!!!!!!!");
+	printf("\nDobrodosli u game library!");
 	printf("\n====================");
 	printf("\n1. Dodaj igru");
 	printf("\n2. Prikazi igre");
@@ -17,6 +27,7 @@ void menu() {
 	printf("\nOdabir: ");
 }
 
+// switch case, sa enumom
 int main() {
 	int izbor;
 
@@ -26,23 +37,23 @@ int main() {
 
 		switch (izbor) {
 
-		case 1:
+		case NOVA_IGRA:
 			stvoriIgru();
 			break;
 
-		case 2:
+		case CITANJE_IGRE:
 			citajIgru();
 			break;
 
-		case 3:
+		case UPDATE_IGRE:
 			updateIgru();
 			break;
 
-		case 4:
+		case BRISANJE_IGRE:
 			obrisiIgru();
 			break;
 
-		case 5:
+		case IZLAZ:
 			printf("\nIzlaz iz programa\n");
 			break;
 
@@ -54,3 +65,10 @@ int main() {
 
 	return 0;
 }
+
+/*
+Koncepti koji su odrađeni (direktno, ne slučajno)
+- 1
+- 11
+
+*/
