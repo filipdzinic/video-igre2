@@ -33,7 +33,8 @@ int main() {
 
 	do {
 		menu();
-		scanf("%d", &izbor);
+		scanf(" %d", &izbor);
+		getchar();
 
 		switch (izbor) {
 
