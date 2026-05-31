@@ -9,6 +9,7 @@ enum opcijaIzbornika {
 	CITANJE_IGRE,
 	UPDATE_IGRE,
 	BRISANJE_IGRE,
+	ISPIS,
 	IZLAZ
 };
 
@@ -22,7 +23,8 @@ void menu() {
 	printf("\n2. Prikazi igre");
 	printf("\n3. Uredi igre");
 	printf("\n4. Obrisi igre");
-	printf("\n5. Izlaz");
+	printf("\n5. Velicina datoteke");
+	printf("\n6. Izlaz");
 	printf("\n====================");
 	printf("\nOdabir: ");
 }
@@ -30,6 +32,7 @@ void menu() {
 // switch case, sa enumom
 int main() {
 	int izbor;
+	FILE* f;
 
 	do {
 		menu();
@@ -54,8 +57,43 @@ int main() {
 			obrisiIgru();
 			break;
 
+		// KONCEPT 20. FSEEK SEEK_END FTELL REWIND
+		// KONCEPT 22. FEOF/FERROR
+		case ISPIS:
+			f = fopen("igre.txt", "rb");
+
+			if (f == NULL) {
+				perror("Greska pri otvaranju datoteke");
+				break;
+			}
+
+			fseek(f, 0, SEEK_END);
+			printf("Velicina: %ld bajtova\n", ftell(f));
+
+			rewind(f);
+
+			Igra igra;
+
+			// feof/ferror/fread
+			while (fread(&igra, sizeof(Igra), 1, f) == 1) {
+				printf("%s - %.2f\n", igra.name, igra.price);
+			}
+
+			if (feof(f)) {
+				printf("\nKraj datoteke\n");
+			}
+
+			if (ferror(f)) {
+				perror("Greska pri citanju datoteke");
+			}
+
+			fclose(f);
+			break;
+
 		case IZLAZ:
 			printf("\nIzlaz iz programa\n");
+			free(popisIgara);
+			popisIgara = NULL;
 			break;
 
 		default:
@@ -66,10 +104,3 @@ int main() {
 
 	return 0;
 }
-
-/*
-Koncepti koji su odrađeni (direktno, ne slučajno)
-- 1
-- 11
-
-*/
