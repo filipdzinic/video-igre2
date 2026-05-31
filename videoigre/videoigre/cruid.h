@@ -17,4 +17,7 @@ int usporediPoCijeni(const void* a, const void* b);
 void stvoriIgru();
 void citajIgru();
 
+extern Igra* popisIgara;
+extern int brojIgara;
+
 #endif
