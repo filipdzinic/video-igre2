@@ -5,11 +5,12 @@
 #include <string.h>
 #include "cruid.h"
 
+// dinamicki zauzeto, potrebno za kon.17 u citajIgru
 Igra* popisIgara = NULL;
 int brojIgara = 0;
 int kapacitet = 0;
 
-// 
+// sljedece 3 funkcije "usporedi" su za sortiranje. pretvaranje pokazivaca za qsort
 int usporediPoId(const void* a, const void* b) {
 	Igra* igraA = (Igra*)a;
 	Igra* igraB = (Igra*)b;
@@ -28,9 +29,10 @@ int usporediPoCijeni(const void* a, const void* b) {
 	return (igraA->price - igraB->price);
 }
 
+// za koncept 25 rekurziva
 float rekurzivnaUkupnaCijena(const Igra* igre, int indeks) {
 	if (igre == NULL || indeks < 0) {
-		return 0.0f; // Bazni slučaj
+		return 0.0f; //bazni slucaj
 	}
 
 	return igre[indeks].price +
@@ -52,7 +54,7 @@ void stvoriIgru() {
 
 	getchar(); // Čisti \n iz međuspremnika
 
-	printf("\nUnesite ime igre, pozeljno bez razmaka: ");
+	printf("\nUnesite ime igre, bez razmaka: ");
 	fgets(k.name, sizeof(k.name), stdin);
 	k.name[strcspn(k.name, "\n")] = 0;
 
@@ -70,10 +72,11 @@ void stvoriIgru() {
 	fprintf(file, "%d %s %s %d %d\n", k.id, k.name, k.genre, k.year, k.price);
 	fclose(file);
 
-	// Ispis potvrde na ekran
+	// ispis
 	printf("\nIgra %s uspjesno dodana u datoteku.\n", k.name);
 }
 
+// KONCEPT 17 malloc calloc free, KONCEPT 23, 24 qsort bsearch, KONCEPT 25 rekurziva
 void citajIgru() {
 
 	FILE* file = fopen(FILE_NAME, "r");
@@ -144,7 +147,7 @@ void citajIgru() {
 	scanf("%d", &odabir);
 
 	switch (odabir) {
-	// KONCEPT 23. QSORT
+		// KONCEPT 23. QSORT
 	case 1:
 		qsort(popisIgara, brojIgara, sizeof(Igra), usporediPoId);
 		break;
@@ -157,7 +160,7 @@ void citajIgru() {
 		qsort(popisIgara, brojIgara, sizeof(Igra), usporediPoCijeni);
 		break;
 
-	// KONECPT 24. BSEARCH
+		// KONECPT 24. BSEARCH
 	case 4: {
 		int trazeniId;
 
@@ -184,7 +187,7 @@ void citajIgru() {
 
 		break;
 	}
-	// KONCEPT 25, REKURZIVA
+		  // KONCEPT 25, REKURZIVA
 	case 5:
 		printf("\n[REKURZIVNI REZULTAT] Ukupna cijena svih igara: %.2f\n",
 			rekurzivnaUkupnaCijena(popisIgara, brojIgara - 1));
@@ -208,6 +211,7 @@ void citajIgru() {
 	}
 }
 
+// sadrzi KONCEPT 21 rename remove
 void updateIgru() {
 	FILE* file = fopen(FILE_NAME, "r");
 	FILE* temp = fopen("temp.txt", "w");
@@ -231,7 +235,7 @@ void updateIgru() {
 		return;
 	}
 
-	while (getchar() != '\n'); // Čišćenje buffera
+	while (getchar() != '\n'); // ciscenje buffera
 
 	while (fgets(linija, sizeof(linija), file) != NULL) {
 		int trenutniID;
@@ -249,12 +253,12 @@ void updateIgru() {
 				printf("Unesite novo ime: ");
 
 				scanf("%[^\n]", trenutnoIme);
-				while (getchar() != '\n'); // Čistimo buffer
+				while (getchar() != '\n'); // ciscenje buffera
 
 				printf("\nIgra azurirana\n");
 			}
 
-			// dodajemo \n na kraj svake linije da se ne spoje
+			// \n na kraj svake linije da se ne spoje
 			fprintf(temp, "%d %s\n", trenutniID, trenutnoIme);
 		}
 	}
@@ -272,6 +276,7 @@ void updateIgru() {
 	}
 }
 
+// isto KON.21
 void obrisiIgru() {
 	FILE* file = fopen(FILE_NAME, "r");
 	FILE* temp = fopen("temp.txt", "w");
@@ -295,7 +300,7 @@ void obrisiIgru() {
 		return;
 	}
 
-	// očisti buffer nakon scanf-a
+	// očisti buffer
 	while (getchar() != '\n');
 
 	// citanje datoteke liniju po liniju
@@ -310,7 +315,7 @@ void obrisiIgru() {
 		if (sscanf(linija, "%d %s", &trenutniID, trenutnoIme, trenutniGenre, trenutniYear, trenutniPrice) == 2) {
 			if (trenutniID == trazeniID) {
 				pronaden = 1;
-				continue; // Preskoči upisivanje ove linije u temp (brišemo je)
+				continue; // preskace se upisivanje ove linije u temp (brišemo je)
 			}
 		}
 
