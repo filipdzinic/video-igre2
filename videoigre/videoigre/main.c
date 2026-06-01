@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include "cruid.h"
 
-// OBAVEZAN KONCEPT 11: Korištenje enum-a za izbornik
+// KONCEPT 11 Korištenje enum-a za izbornik
 enum opcijaIzbornika {
 	NOVA_IGRA = 1,
 	CITANJE_IGRE,
@@ -13,7 +13,7 @@ enum opcijaIzbornika {
 	IZLAZ
 };
 
-// izbornik
+// KONCEPT 10 izbornik
 void menu() {
 
 	printf("\n!!!!!!!!!!!!!!!!!!!!");
@@ -29,7 +29,7 @@ void menu() {
 	printf("\nOdabir: ");
 }
 
-// switch case, sa enumom
+// switch case, sa enumom, ovo je dugacko. sadrzi i koncept 20 fseek i 22 feof/ferror
 int main() {
 	int izbor;
 	FILE* f;
@@ -57,8 +57,8 @@ int main() {
 			obrisiIgru();
 			break;
 
-		// KONCEPT 20. FSEEK SEEK_END FTELL REWIND
-		// KONCEPT 22. FEOF/FERROR
+			// KONCEPT 20. FSEEK SEEK_END FTELL REWIND
+			// KONCEPT 22. FEOF/FERROR
 		case ISPIS:
 			f = fopen("igre.txt", "rb");
 
